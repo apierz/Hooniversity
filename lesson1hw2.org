@@ -1,0 +1,12 @@
+#+begin_src hoon
+> :-(~nordel-namwyx ~zod)
+[~nordel-namwyx ~zod]
+> :-(~nordel-namwyx :-(~zod ~ramnes))
+[~nordel-namwyx ~zod ~ramnes]
+> :+(~nordel-namwyx ~zod ~ramnes)
+[~nordel-namwyx ~zod ~ramnes]
+> :*(~nordel-namwyx ~zod ~ramnes ~fed)
+[~nordel-namwyx ~zod ~ramnes ~fed]
+#+end_src
+
+I entered created a tuple using colhep, a triple using colhep and collus, and a 4-tuple using coltar.
