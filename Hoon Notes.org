@@ -1,0 +1,120 @@
+* Hoon Notes
+
+** Nouns
+Hoon uses nouns, which are atoms (natural numbers) or cells (pairs of nouns, cells can be nested as binary trees)
+
+** Cells
+
+left of a cell is the head, right is the tail
+brackets around a pair of nouns
+
+** Auras
+atoms can have auras `@`will show the raw value
+
+identities have the @p aura
+cords (hoonish strings) have an @t aura
+terms have an @tas aura, terms are constants values that tag data
+
+   %a, %hello
+*** Non-exhaustive list of auras
+
+Aura         Meaning                        Example of Literal Syntax
+-------------------------------------------------------------------------
+@d           date
+  @da        absolute date                  ~2018.5.14..22.31.46..1435
+  @dr        relative date (ie, timespan)   ~h5.m30.s12
+@n           nil                            ~
+@p           phonemic base (urbit name)     ~sorreg-namtyv
+@r           IEEE floating-point
+  @rd        double precision  (64 bits)    .~6.02214085774e23
+  @rh        half precision (16 bits)       .~~3.14
+  @rq        quad precision (128 bits)      .~~~6.02214085774e23
+  @rs        single precision (32 bits)     .6.022141e23
+@s           signed integer, sign bit low
+  @sb        signed binary                  --0b11.1000
+  @sd        signed decimal                 --1.000.056
+  @sv        signed base32                  -0v1df64.49beg
+  @sw        signed base64                  --0wbnC.8haTg
+  @sx        signed hexadecimal             -0x5f5.e138
+@t           UTF-8 text (cord)              'howdy'
+  @ta        ASCII text (knot)              ~.howdy
+    @tas     ASCII text symbol (term)       %howdy
+@u              unsigned integer
+  @ub           unsigned binary             0b11.1000
+  @ud           unsigned decimal            1.000.056
+  @uv           unsigned base32             0v1df64.49beg
+  @uw           unsigned base64             0wbnC.8haTg
+  @ux           unsigned hexadecimal        0x5f5.e138
+
+* Useful Dojo commands
+
+provides the base hash of the target
+-read %z ~dev %kids da+now /
+
+show login code
++code 
+
+show version and other info
++trouble
+
+clean out subject in dojo
+.
+then =
+
+* Hooniversity Notes
+** Lesson 1 Notes
+
+** Lesson 2 Notes
+
+*** Goal
+Write a generator that takes in one piece of information, assigns it a face, and internally creates two other faces and assigns them values based on the first.
+
+*** Review: Gates, Faces, Generators, Arms, Cores
+
+**** Generators
++ Complete functions that can be run from /home/gen in the dojo
++ All generators are arms, not all arms are generators
+
+**** Arms
++ A peice of hoon code
++ could be a core, gate, generator
+
+**** Core
++ battery, payload, something to do
+
+**** Gates
++ subset of cores, a core where battery consists one 1 (and only 1) arm of things to do
++ one arm of a gate has to be a full thought of what to do and then an express of data
++simplest form of cores
+
+**** Faces
++ set value, bunt value, some other arm that resolves to a value
++ hoons equivalent of variables
+***** bunt value
+
+*** New Runes
+
++ a temporary value, emptiest form of the type you have declared, usually 0
++ i.e. bunt of @ud = 0
+
+**** =/ (tis-fas)
++ =/ name=type value hoon
++ combine a named noun to the subject
++ Three children: 1 face given to the noun 2 value of new noun 3 hoon to run
+
+**** =| (tis-bar)
++ =| name=type  hoon
++ combine a default type value with the subject
++ takes 2 children 1 the face and type, 2 some hoon
+
+**** =. (tis-dot)
++ takes a face and assigns it a temporary value that exists only within its own hoon
+> =a 2
+> =.  a  3
+  a
+3
+> a
+2
+
+
+
