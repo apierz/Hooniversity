@@ -1,5 +1,5 @@
 |=  a=@t
-^-    [@t @ud @ta]
+^-  [@t @ud @ta]
 :+  a
   `@ud`a
 `@ta`a    
