@@ -135,3 +135,57 @@ Write a generator that takes in one piece of information, assigns it a face, and
 
 
 
+
+** Lesson 3 Notes
+BIG IFF %y Conditional Operators
+
+*** ?: and ?.
+Sister operations
+
+**** ?: wut-col
+3 children test hoon if true hoon if false
+
+#+begin_src hoon
+  ?:  %.y :: %.y = yes
+  "Result True"
+  "Result False"
+  ::> "Result 1"
+#+end_src
+
+#+begin_src hoon
+  ?:  %.n :: %.n = no
+  "Result True"
+  "Result False"
+  ::>"Result False"
+#+end_src
+
+**** ?. wut-dot
+
+#+begin_src hoon
+  ?.  =(1 1)
+  "False Result"
+  "True Result"
+  ::> "True Result"
+#+end_src
+
+?. is ?: inverted
+
+*** ?^ wut-ket
+wut-ket takes three children (a wing and two branches)
+wut-ket branches depending on whether the wing is a cell
+
+*** ?> wut-gar
+wut-gar takes two children a test (an assertion) and some hoon
+wut-gar crashes if the test is not true or continues
+
+*** .= dot-tis
+takes two children (hoons) and returns &.y if they are equal, %.n if not
+wideform =(hoon hoon)
+
+**** gth, lth gte, lte
+
+(gte a b) returns %.y if a is greater than or equal to b
+(gth a b) returns %.y if a is greater than b
+(lth a b) returns %.y if a is less than b
+(lte a b) returns %.y if a is less than or equal to b
+
