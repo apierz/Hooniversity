@@ -1,4 +1,5 @@
-|=  testee=@  :: take an atom through the gate
+|=  testee=@   :: take an atom through the gate
+^-  (list @tD) ::  this generator will return a tape
 ?:  :: if, testee is < 10
     ::
     (lth testee 10)

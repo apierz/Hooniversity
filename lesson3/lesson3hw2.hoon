@@ -1,4 +1,5 @@
-|=  testee=*  :: take a noun through the gate
+|=  testee=*        :: take a noun through the gate
+^-  [(list @tD) *]  :: this generator returns a cell of tape and noun
 ?^  :: if, testee is a cell
     ::
     testee
