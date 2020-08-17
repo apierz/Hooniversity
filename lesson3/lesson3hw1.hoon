@@ -1,6 +1,5 @@
 |=  testee=@  :: take an atom through the gate
-::  =/  testee=@ud  input  :: cast, input in
-?:  :: if, if testee is < 10
+?:  :: if, testee is < 10
     ::
     (lth testee 10)
   :: then, say so
