@@ -220,5 +220,30 @@ A Cell of =sample= and =context=
 ***** What is the difference between the subject and the context?
 It is hard to differentiate them
 
-The context does not have the entirety of the subject
+The context does not have the entirety of the subject.
 
+*** Bar-Ket |^
+a core, has one arm called buc
+optionally has additional arms that can be used in the evaluation of buc ($)
+
+*** bar-cen |%
+creates a core which caontains one or more computation methods
+
+*** ++ lus-lus
+signals a new arm
+call an arm w/armname and arguments
+members of the lus family produce arms
+
+*** hep-hep --
+signal to end an arm
+
+*** tis-tis ==
+closes different types of cores
+
+*** tis-gal =<
+=< a=hoon b =hoon
+computes a after computing
+
+*** More conditionals
+**** wut-sig ?~
+conditional based on whether result is null (~)

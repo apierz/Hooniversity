@@ -1,4 +1,4 @@
-|=  [ud1=@ud ud2=@ud tas1=@tas]:: open, the gate with 3 arguments
+|=  [ud1=@ud ud2=@ud tasl=?(%add %sub %mul %div @]:: open, gate with 3 arguments
 |^  :: create, a new core with arms
     ^-  @ud ::cast, the return as a @ud
   ?+  :: switch, based on tas1
@@ -31,9 +31,9 @@
       sub-arm
         :: open, the gate for the sub-arm
         |=  [a=@ud b=@ud]
-        ?:  :: if, a is greater than b
+        ?:  :: if, a is greater than or equal to b
             ::
-            (gth a b)
+            (gte a b)
           ::return b - a
           ::
           (sub a b)
