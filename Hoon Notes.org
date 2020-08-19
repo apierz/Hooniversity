@@ -67,6 +67,7 @@ then =
 :: Goal: write a program that takes your planet name and creates a cell fo your planet's number and planet's name
 
 :: |= is a bartis which makes a gate
+
 :: bartis takes a =sample= and has only one =arm=
 |= a=@ud
 a
@@ -188,4 +189,36 @@ wideform =(hoon hoon)
 (gth a b) returns %.y if a is greater than b
 (lth a b) returns %.y if a is less than b
 (lte a b) returns %.y if a is less than or equal to b
+
+** Lesson 4 - The Right to Bear Arms
+Cores, Gates, Arms, Doors
+
+a Gate is a Core - one arm called $ (buc)
+executed right away
+
+in other types of Cores, there are other arms with other names
+
+*** What is a Core?
+
+A core is a cell with a head of =battery= and a tail of =payload=
+
+**** What is a Battery?
+Battery is what to do w/the data given to the core (core like reactor core not apple core)
+
+**** What is a payload?
+A Cell of =sample= and =context=
+
+=sample= is the inputs coming into the core
+
+=context= the 'operational environment'
++ standard library
++ name of the ship
++ now as a datetime
++ things pinned to the subject
++ etc (Ford runes for libraries and so on)
+
+***** What is the difference between the subject and the context?
+It is hard to differentiate them
+
+The context does not have the entirety of the subject
 
