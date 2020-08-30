@@ -227,7 +227,7 @@ a core, has one arm called buc
 optionally has additional arms that can be used in the evaluation of buc ($)
 
 *** bar-cen |%
-creates a core which caontains one or more computation methods
+creates a core which contains one or more computation methods
 
 *** ++ lus-lus
 signals a new arm
@@ -247,3 +247,20 @@ computes a after computing
 *** More conditionals
 **** wut-sig ?~
 conditional based on whether result is null (~)
+
+
+** Lesson 5 - Sibilance
+
+*** cords and tapes
+
+Both are ways of handling text in hoon
+
+Tapes = "tapes" made of cells
+cords = 'cords' atomic
+
+handled very differently by hoon
+
+*** loobeans
+
+=&= is true (pam)
+=|= is false (bar)

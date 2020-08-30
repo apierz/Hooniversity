@@ -1,4 +1,4 @@
-|=  [ud1=@ud ud2=@ud tasl=?(%add %sub %mul %div @]:: open, gate with 3 arguments
+|=  [ud1=@ud ud2=@ud tas1=?(%add %sub %mul %div @)]:: open, gate with 3 arguments
 |^  :: create, a new core with arms
     ^-  @ud ::cast, the return as a @ud
   ?+  :: switch, based on tas1
@@ -53,3 +53,4 @@
         |=  [a=@ud b=@ud]
         (div a b)
   --  ::close, the bar-het core
+
