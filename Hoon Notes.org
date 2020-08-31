@@ -264,3 +264,25 @@ handled very differently by hoon
 
 =&= is true (pam)
 =|= is false (bar)
+
+** Lesson 6 - Measure Counter and Cut Once
+
+*** %= (cen-tis)
+cen tis starts a recursion arm for recalling
+
+**** Tall form:
+#+begin_src hoon 
+  %=  $
+  <face1>  <new value>
+  <face2>  <new value 2>
+  ==
+#+end_src
+
+**** Wide form:
+#+begin_src hoon
+  $(<face1> <new value>, <face2> <new value>)
+ #+end_src
+
+*** |- (bar-hep)
+
+produces a trap, which is a core. It's like a gate but takes no sample

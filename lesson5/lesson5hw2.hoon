@@ -3,7 +3,7 @@
 ^-  @tD
 ?+  form  '!' 
   %first  (first-arm mylist)
-  %second   (second-arm mylist)
+  %second (second-arm mylist)
 ==
 ++  first-arm 
   |=  [findin=tape]
