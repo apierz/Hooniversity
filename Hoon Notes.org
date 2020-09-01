@@ -286,3 +286,76 @@ cen tis starts a recursion arm for recalling
 *** |- (bar-hep)
 
 produces a trap, which is a core. It's like a gate but takes no sample
+
+** Lesson 7 - a four point buc
+
+*** %- (Cen-hep)
+
+another rune that can be used to build recursive cores
+
+*** %= (Cen-tis)
+takes a wing and resolves it with changes
+#+begin_src hoon
+%=  $
+
+  a  +(a)
+
+  b  (add a b)
+
+  output  :-([a b] output)
+
+  cycle  (dec cycle)
+
+==
+#+end_src
+these all happen simultaneously, not sequentially. i.e. b will be modified with the original value of a, not the incremented value from the line above.
+
+
+*** Lists
+
+a collection of cells of atoms that ends with ~ (null)
+
+*** Flop
+
+a builtin library function that flips a list
+
+
+#+begin_src hoon
+> =four [0 1 2 3 ~]
+> `(list @p)`four
+> nest fail
+#+end_src
+
+#+begin_src hoon
+> =four [0 1 2 3 ~]
+> `(list @p)``(list @)`four
+> ~[~zod ~nec ~bud ~wes]
+#+end_src
+
+#+begin_src hoon
+> =four `(list @)`[0 1 2 3 ~]
+> `(list @p)`four
+> ~[~zod ~nec ~bud ~wes]
+#+end_src
+
+
+This is because of what the compiler knows about the data structure of the list. The cast of @p doesn't know it is dealing with a list.
+
+*** typing with faces
+#+begin_src hoon
+=a [b="hello" c="dasdus"]
+b.a
+"hello"
+c.a
+"dascus"
+-.a
+b="hello"
++.a
+c="dasdus"
+(flop c.a)
+"sudsad"
+(flop `tape`+.a)
+#+end_src
+
+faces are part of the type system
+cast early, cast often to keep the compiler informed
