@@ -359,3 +359,43 @@ c="dasdus"
 
 faces are part of the type system
 cast early, cast often to keep the compiler informed
+** Lesson 9 - Maps
+
+*** Maps
+
++ Kind of like dictionaries in other languages
++ Key-Value pairs
+
+*** %~ (cen-sig)
++ doors have a built in sample
++ gates have a user supplied sample
++ %~ can interact with the arms of the door
+
+**** |_ (bar-cab)
+
+#+begin_src hoon
+  > > =tester |_  builtin=_"this is a tape"
+    ++  flopper  (flop builtin)
+    --
+  > flopper.tester
+  "epat a si siht"
+#+end_src
+
+%~ says give me an arm, a door, and a new value
++ does not remove the old value
+#+begin_src hoon 
+  > %~  flopper  tester  "not the old tape"
+  "epat dlo eht ton"
+#+end_src
+
+*** %- (cen-hep)
++ call a gate against some arguments
+
+#+begin_src hoon
+ > =tester |=(a=tape (flop a))
+> %-  tester
+  "mutant tape stylie"
+"eilyts epat tnatum"
+#+end_src
+
+
