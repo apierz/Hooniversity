@@ -1,16 +1,16 @@
-!: ::error logging
-|=  [msg=tape steps=@ud] :: open a gate take a cell sample
-=< :: compose two expressions, inverted so second set is executed first
-=.  msg  (cass msg) :: creates a new subject with a changed value for msg, cass = lowercase
-:-  (shift msg steps) :: combines two expressions into a tuple
+!:
+|=  [msg=tape steps=@ud]
+=<
+=.  msg  (cass msg)
+:-  (shift msg steps)
 (unshift msg steps)
 
-|% :: creates a core, second child of =<
-++  alpha  "abcdefghijklmnopqrstuvwxyz" :: first arm, a tape of lower case letters
-++  shift :: second arm, shifts the message forward by calling other arms
-  |=  [message=tape shift-steps=@ud] :: opens a gate, takes a cell as sample
-  ^-  tape :: casts return as a tape
-  (operate message (encoder shift-steps)) :: calls operate arm on message
+|%
+++  alpha  "abcdefghijklmnopqrstuvwxyz"
+++  shift
+  |=  [message=tape shift-steps=@ud]
+  ^-  tape
+  (operate message (encoder shift-steps))
 ++  unshift
   |=  [message=tape shift-steps=@ud]
   ^-  tape
@@ -45,9 +45,9 @@
   ?:  |(?=(~ key-position) ?=(~ value-result))
   chart
   $(chart (~(put by chart) i.key-position i.value-result), key-position t.key-position, value-result t.value-result)
-++  rotation :: shifts the alphabet tape by moving some characters to the end
+++  rotation
   |=  [my-alphabet=tape my-steps=@ud]
   =/  length=@ud  (lent my-alphabet)
   =+  (trim (mod my-steps length) my-alphabet)
-  (weld q p) :: trim gives you the p and q, weld is putting them back in reverse order
+  (weld q p)
 --
