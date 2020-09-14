@@ -398,4 +398,32 @@ cast early, cast often to keep the compiler informed
 "eilyts epat tnatum"
 #+end_src
 
+** Lesson 10 - Functional Programming
 
+*** ?& (wut-pam)
+
++ Boolean Checker with no hoon children
++ performs multiple tests and returns %.y if all are true
++ returns %.n if one or more is false
+
+#+begin_src hoon
+?&(=(1 1) =(2 2))
+%.y
+?&(=(1 2) =(2 2))
+%.n
+?&(=(1 1) =(2 3))
+%.n
+#+end_src
+
++ NOTE: | = %.n and & = %.y
+
+*** ~| (sig-bar)
++  for error messages on crash
+
+*** +$ (lus-buc)
++ defines a type using a buc runes
++ allows for custom typing using combinations of forms
+
+*** @rs
++ floating points for decimal operations
++ always begins with a .
