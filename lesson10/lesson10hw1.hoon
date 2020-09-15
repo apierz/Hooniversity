@@ -1,54 +1,64 @@
 !:
+::  open, a gate that takes the from-unit, quantity, to unit, and
+::  base quantity
+::
 |=  [fr-meas=@tas num=@rs to-meas=@tas base-quantity=@tas]
+::  designate a second core to be executed first but written below
+::
 =<
+::  cast, the return of the generator as a @rs (floating point)
+::
 ^-  @rs
+::  if, the base-quanity is not in the union of allowed-base
+::
 ?.  ?=(allowed-base base-quantity)
+  :: show this error
+  ::
   ~|("Invalid Base Quantity -use %length or %volume-" !!)
-?.  (allowed [fr-meas to-meas base-quantity])
+:: else, check if both the fr-meas and to-meas are allowed units within
+:: the same base quanity type by calling allowed-new
+::
+?.  (allowed-new [fr-meas to-meas base-quantity])
+  :: if not, show this error
+  ::
   ~|("Invalid Measures" !!)
+::  else, call output arm to generate the output
+::
 (output (units fr-meas num base-quantity) to-meas (convert-to-map base-quantity))
-:: 
+::
+:: bar-cen marks the second core designated by =< above
+::
 |%
-+$  allowed-len  ?(%inch %foot %yard %furlong %chain %link %rod %fathom %shackle %cable %nautical-mile %hand %span %cubit %ell %bolt %league %megalithic-yard %smoot %barleycorn %poppy-seed %atto %femto %pico %nano %micro %milli %centi %deci %meter %deca %hecto %kilo %mega %giga %tera %peta %exa)
 ::
-+$  allowed-vol  ?(%atto %femto %pico %nano %micro %milli %cubic-milli %centi %cubic-centi %deci %tsp %tbsp %fl-oz %cup %pint %quart %liter)
-::
-::list versions of the unit types for experimenting
-::
-::  ++  allowed-len  [%inch %foot %yard %furlong %chain %link %rod %fathom %shackle %cable %nautical-mile %hand %span %cubit %ell %bolt %league %megalithic-yard %smoot %barleycorn %poppy-seed %atto %femto %pico %nano %micro %milli %centi %deci %meter %deca %hecto %kilo %mega %giga %tera %peta %exa]~
-::  
-::  ++  allowed-vol  [%atto %femto %pico %nano %micro %milli %cubic-milli %centi %cubic-centi %deci %tsp %tbsp %fl-oz %cup %pint %quart %liter]~
-::  
-::  +$  allowed-units  $:(p=(list @tas) q=(list @tas))
-::
-::  ++  units-list
-::  ^-  (list @)
-::  [allowed-len allowed-vol]~
+::  union of allowed-base, new base quantities should be added as a @tas here
 ::
 +$  allowed-base  ?(%length %volume)
 ::
-++  allowed
+::  no longer need seperate collections for the unit names, checks the map
+::  instead to avoid redunancy.
+::  allowed-new takes the fr-meas, to-meas, and base-quantity as a sample
+::
+++  allowed-new
 |=  [fr-meas=@tas to-meas=@tas base-quantity=allowed-base]
+::  cast, the return as a flag
+::
 ^-  flag
-?-  base-quantity
-%length  
-  &(?=(allowed-len fr-meas) ?=(allowed-len to-meas))
-%volume  
-  &(?=(allowed-vol fr-meas) ?=(allowed-vol to-meas))
-==
-:: Attempt to make a recursive search through all the collections of values to make
-:: it easier to update this generator later. Having problems with lists of list and
-:: lists of unions. Not able to figure it out yet. Might be able to do it with +2:on
-:: the list to get the first element of the list.
-::  |=  [fr-meas=@tas to-meas=@tas]
-::  =/  allowed-flag=flag  %.n
-::  =/  units=(list @)  units-list
-::  =/  counter=@ud  2
-::  |-  ^-  flag
-::  ?~  units  allowed-flag
-::    ?~  (find [fr-meas]~ [i.units]~)  $(units t.units, counter (dec counter)) 
-::      ?~  (find [to-meas]~ [i.units]~)  $(units t.units, counter (dec counter))
-::        $(allowed-flag %.y, counter (dec counter))
+::
+::  if, the fr-meas cannot find a value pair in the map produced by the
+::  convert-to-map arm when passed the user's base quantity, return %.n
+::
+?~  (~(got by (convert-to-map base-quantity)) fr-meas)  %.n
+  ::  else, if the the to-meas cannot find a value pair in the map produced
+  ::  by the convert-to-map arm when passed the user's base quantity, return %.n
+  ::
+  ?~  (~(got by (convert-to-map base-quantity)) to-meas)  %.n
+  :: else, both fr-meas and to-meas found value pairs so %.y is returned
+  ::
+  %.y
+::
+::  units arm, replaces meters to be more general. Same as before but now
+::  convert-to-map takes a base-quanity in its sample to determine which
+::  map it should return
 ::
 ++  units
   |=  [in=@tas value=@rs base-quantity=allowed-base]
@@ -56,14 +66,19 @@
   =/  factor-one
     (~(got by (convert-to-map base-quantity)) in) 
   (mul:rs value factor-one)
-:: 
+::
+::  output arm, same as before, but no longer tests for meters to be more general
+::
 ++  output
   |=  [in=@rs out=@tas conversion-map=(map @tas @rs)]
   ^-  @rs
-  ?:  =(out %meter)
-    in
   (div:rs in (~(got by conversion-map) out))
 :: 
+::  convert-to-map arm. Now has a gate which takes base-quantity from the allowed-base
+::  union as a sample. It then switches on the base-quantity taken to determine
+::  which base quantity units map it should return. Can add additional base quanity
+::  values if desired.
+::
 ++  convert-to-map
   |=  base-quantity=allowed-base
   ^-  (map @tas @rs)
@@ -128,6 +143,11 @@
         :-  %cup              .2.365e-1
         :-  %pint             .4.731e-1
         :-  %quart            .9.463e-1
+        :-  %mega             .1e6
+        :-  %giga             .1e8
+        :-  %tera             .1e12
+        :-  %peta             .1e15
+        :-  %exa              .1e18
         :-  %liter            .1
     ==
   ==
