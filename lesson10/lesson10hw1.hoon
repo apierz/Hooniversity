@@ -13,20 +13,45 @@
 ::
 +$  allowed-vol  ?(%atto %femto %pico %nano %micro %milli %cubic-milli %centi %cubic-centi %deci %tsp %tbsp %fl-oz %cup %pint %quart %liter)
 ::
+::list versions of the unit types for experimenting
+::
+::  ++  allowed-len  [%inch %foot %yard %furlong %chain %link %rod %fathom %shackle %cable %nautical-mile %hand %span %cubit %ell %bolt %league %megalithic-yard %smoot %barleycorn %poppy-seed %atto %femto %pico %nano %micro %milli %centi %deci %meter %deca %hecto %kilo %mega %giga %tera %peta %exa]~
+::  
+::  ++  allowed-vol  [%atto %femto %pico %nano %micro %milli %cubic-milli %centi %cubic-centi %deci %tsp %tbsp %fl-oz %cup %pint %quart %liter]~
+::  
+::  +$  allowed-units  $:(p=(list @tas) q=(list @tas))
+::
+::  ++  units-list
+::  ^-  (list @)
+::  [allowed-len allowed-vol]~
+::
 +$  allowed-base  ?(%length %volume)
 ::
 ++  allowed
-|=  [fr-meas=@tas to-meas=@tas base-quantity=?(%length %volume @)]
+|=  [fr-meas=@tas to-meas=@tas base-quantity=allowed-base]
 ^-  flag
-?+  base-quantity  |
+?-  base-quantity
 %length  
   &(?=(allowed-len fr-meas) ?=(allowed-len to-meas))
 %volume  
   &(?=(allowed-vol fr-meas) ?=(allowed-vol to-meas))
 ==
+:: Attempt to make a recursive search through all the collections of values to make
+:: it easier to update this generator later. Having problems with lists of list and
+:: lists of unions. Not able to figure it out yet. Might be able to do it with +2:on
+:: the list to get the first element of the list.
+::  |=  [fr-meas=@tas to-meas=@tas]
+::  =/  allowed-flag=flag  %.n
+::  =/  units=(list @)  units-list
+::  =/  counter=@ud  2
+::  |-  ^-  flag
+::  ?~  units  allowed-flag
+::    ?~  (find [fr-meas]~ [i.units]~)  $(units t.units, counter (dec counter)) 
+::      ?~  (find [to-meas]~ [i.units]~)  $(units t.units, counter (dec counter))
+::        $(allowed-flag %.y, counter (dec counter))
 ::
 ++  units
-  |=  [in=@tas value=@rs base-quantity=@tas]
+  |=  [in=@tas value=@rs base-quantity=allowed-base]
   ^-  @rs
   =/  factor-one
     (~(got by (convert-to-map base-quantity)) in) 
@@ -34,14 +59,15 @@
 :: 
 ++  output
   |=  [in=@rs out=@tas conversion-map=(map @tas @rs)]
+  ^-  @rs
   ?:  =(out %meter)
     in
   (div:rs in (~(got by conversion-map) out))
 :: 
 ++  convert-to-map
-  |=  base-quantity=?(%length %volume @)
+  |=  base-quantity=allowed-base
   ^-  (map @tas @rs)
-  ?+  base-quantity  !! 
+  ?-  base-quantity
   %length
   %-  my
   :~  :-  %atto             .1e-18
