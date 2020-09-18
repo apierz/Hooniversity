@@ -9,15 +9,31 @@
 ++  fretboardmaptolist
 |=  fretboardmap=(map @ud (list @t))
 =/  counter=@ud  6
-=/  currentstring=(list @t)  (list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6)
-currentstring
-::  |-  ^-  (list @t)
+=|  displaylist=(list @t)
+[fretnumber (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6)) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 5)) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 4)) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 3)) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 2)) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 1))]~
 
+++  stringbuilder
+|=  notelist=(list @t) 
+=/  counter=@ud  21 
+=/  stringstring=@t  ''
+|-  ^-  @t
+?:  =(counter 0)  (crip (weld (trip stringstring) "|"))
+  ?:  =((snag 0 notelist) 'A')  $(stringstring (crip (weld (trip stringstring) (trip afret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'A#')  $(stringstring (crip (weld (trip stringstring) (trip asfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'B')  $(stringstring (crip (weld (trip stringstring) (trip bfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'C')  $(stringstring (crip (weld (trip stringstring) (trip cfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'D')  $(stringstring (crip (weld (trip stringstring) (trip dfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'D#')  $(stringstring (crip (weld (trip stringstring) (trip dsfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'E')  $(stringstring (crip (weld (trip stringstring) (trip efret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'F')  $(stringstring (crip (weld (trip stringstring) (trip ffret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'F#')  $(stringstring (crip (weld (trip stringstring) (trip fsfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'G')  $(stringstring (crip (weld (trip stringstring) (trip gfret))), counter (dec counter), notelist (oust [0 1] notelist))
+  ?:  =((snag 0 notelist) 'G#')  $(stringstring (crip (weld (trip stringstring) (trip gsfret))), counter (dec counter), notelist (oust [0 1] notelist))
+    $(stringstring (crip (weld (trip stringstring) (trip blankfret))), counter (dec counter), notelist (oust [0 1] notelist))
+::
 ++  fretboardmap
 |=  scalenoteslist=(list @t)
 ^-  (map @ud (list @t))
-::  =/  counter=@ud  6 
-::  =|  fretmap=(map @ud (list @t))
 %-  my
   :~  :-  1             (notedeleter [1 scalenoteslist])
       :-  2             (notedeleter [2 scalenoteslist])
@@ -26,9 +42,6 @@ currentstring
       :-  5             (notedeleter [5 scalenoteslist])
       :-  6             (notedeleter [6 scalenoteslist])
   ==
-::  |-  ^-  (map @ud (list @t))
-::  ?:  =(counter 0)  fretmap
-::    $(counter (dec counter), (~(put by fretmap) counter (notedeleter [counter scalenoteslist])))
 ++  major
 ^-  tape
 "0x0x00x0x0x0"
@@ -90,6 +103,45 @@ currentstring
   ==
 ++  fretnumber
   ^-  @t
-  `@t`'|---0---|---1---|---2---|---3---|---4---|---5---|---6---|---7---|---8---|---9---|---10--|---11--|---12--|'
-
+  `@t`'|--0--|--1--|--2--|--3--|--4--|--5--|--6--|--7--|--8--|--9--|-10--|-11--|-12--|-13--|-14--|-15--|-16--|-17--|-18--|-19--|-20--|'
+++  blankfret
+  ^-  @t
+  `@t`'|-----'
+::
+++  afret
+  ^-  @t
+  `@t`'|--A--'
+++  asfret
+  ^-  @t
+  `@t`'|--A#-'
+++  bfret
+  ^-  @t
+  `@t`'|--B--'
+++  cfret
+  ^-  @t
+  `@t`'|--C--'
+++  csfret
+  ^-  @t
+  `@t`'|--C#-'
+++  dfret
+  ^-  @t
+  `@t`'|--D--'
+++  dsfret
+  ^-  @t
+  `@t`'|--D#-'
+++  efret
+  ^-  @t
+  `@t`'|--E--'
+++  ffret
+  ^-  @t
+  `@t`'|--F--'
+++  fsfret
+  ^-  @t
+  `@t`'|--F#-'
+++  gfret
+  ^-  @t
+  `@t`'|--G--'
+++  gsfret
+  ^-  @t
+  `@t`'|--G#-'
 --
