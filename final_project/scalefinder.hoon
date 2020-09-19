@@ -70,10 +70,6 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
   ?~  (fand [(snag 0 `(list @t)`string) ~] scalenoteslist)  $(editedstring (snoc editedstring 'x'), string t.string)   
     $(editedstring (snoc `(list @t)`editedstring (snag 0 `(list @t)`string)), string t.string)
 ::
-++  twooctaves
-  ^-  (list @t)
-  `(list @t)`['A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#' 'A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#' 'A' ~]
-::
 ++  octaveshortner
 |=  oustto=@ud
 ^-  (list @t)
@@ -87,6 +83,10 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
   ?~  shortenedlist  ~
   ?:  =((snag 0 `tape`styleindex) '0')  $(returnlist (snoc returnlist `@t`(snag 0 `(list @t)`shortenedlist)), styleindex t.styleindex, shortenedlist t.shortenedlist) 
     $(styleindex t.styleindex, shortenedlist t.shortenedlist)
+::
+++  twooctaves
+  ^-  (list @t)
+  `(list @t)`['A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#' 'A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#' 'A' ~]
 ::
 ++  g-string
   ^-  (list @t)
