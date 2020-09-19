@@ -4,7 +4,6 @@
 =/  scalestyleindex=tape  (getscaletape styleindex) 
 =+  limiter=(snag 0 (fand stringguide twooctaves))
 =/  scalenoteslist=(list @t)  `(list @t)`(scalelistbuilder [(octaveshortner limiter) scalestyleindex])
-::  (fretboardmaptolist (fretboardmap scalenoteslist) scalenoteslist)
 [scalenoteslist (fretboardmaptolist [(fretboardmap scalenoteslist) scalenoteslist])]
 
 |%
@@ -28,7 +27,6 @@
 ::
 ++  fretboardmaptolist
 |=  [fretboardmap=(map @ud (list @t)) scalenotelist=(list @t)]
-::  |=  fretboardmap=(map @ud (list @t))
 [fretnumber (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 1) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 2) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 3) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 4) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 5) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6) scalenotelist)]~
 ::
 ++  stringbuilder
@@ -49,7 +47,6 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
 ?:  =(currentnote 'x')  "|-------"
   ?:  (gth (lent (trip currentnote)) 1)  (weld (weld (weld (weld fretstring ~(rend co %$ %ud (add currentnoteindex 1))) "-") (trip currentnote)) "-")
 (weld (weld (weld (weld fretstring ~(rend co %$ %ud (add currentnoteindex 1))) "-") (trip currentnote)) "--")
-
 ::
 ++  fretboardmap
 |=  scalenoteslist=(list @t)
@@ -121,44 +118,4 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
   ^-  @t
   `@t`'|---0---|---1---|---2---|---3---|---4---|---5---|---6---|---7---|---8---|---9---|---10--|---11--|---12--|---13--|---14--|---15--|---16--|'
   ::  `@t`'|--0--|--1--|--2--|--3--|--4--|--5--|--6--|--7--|--8--|--9--|-10--|-11--|-12--|-13--|-14--|-15--|-16--|-17--|-18--|-19--|-20--|'
-++  blankfret
-  ^-  @t
-  `@t`'|-------'
-::
-++  afret
-  ^-  @t
-  `@t`'|---A---'
-++  asfret
-  ^-  @t
-  `@t`'|---A#--'
-++  bfret
-  ^-  @t
-  `@t`'|---B---'
-++  cfret
-  ^-  @t
-  `@t`'|---C---'
-++  csfret
-  ^-  @t
-  `@t`'|---C#--'
-++  dfret
-  ^-  @t
-  `@t`'|---D---'
-++  dsfret
-  ^-  @t
-  `@t`'|---D#--'
-++  efret
-  ^-  @t
-  `@t`'|---E---'
-++  ffret
-  ^-  @t
-  `@t`'|---F---'
-++  fsfret
-  ^-  @t
-  `@t`'|---F#--'
-++  gfret
-  ^-  @t
-  `@t`'|---G---'
-++  gsfret
-  ^-  @t
-  `@t`'|---G#--'
 --
