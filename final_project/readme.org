@@ -23,7 +23,10 @@ scalefinder.hoon is a simple generator for displaying the notes of various scale
 
 * Usage
 =+scalefinder= takes a cell as a sample where the head is a =cord=
-='A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#'=
+
+#+begin_src 
+'A' 'A#' 'B' 'C' 'C#' 'D' 'D#' 'E' 'F' 'F#' 'G' 'G#'
+#+end_src
 
 and the tail is a =term=. Currently supported scale types:
 +  %major      
