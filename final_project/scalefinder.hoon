@@ -1,6 +1,13 @@
 :: The outer gate of the generator takes a root note and scale type (styleindex).
-:: The root note is converted to a list so that the fand and find commands can
-:: be used later.
+:: The basic flow:
+:: 1. figure out what notes are in the scale the user wants (scalenoteslist).
+:: 2. make a map of all the notes on the fretboard where the key is a @ud
+::    representing a guitar string and the value is a list of @t
+::    and each @t is a note (fretboard).
+:: 3. compare the scalenoteslist to the fretboard and make a new map
+::    with all of the notes not in the scale removed.
+:: 4. use the new map to make a some @t that, when combined as a list and
+::    pretty printed, look like guitar tablature
 ::
 !.
 |=  [root=@t styleindex=@tas]
@@ -47,7 +54,11 @@
   %locrian     "00x0x00x0x0x"
   %mixolydian  "0x0x00x0x00x"
   %pentatonic  "0x0x0xx0x0xx"
+  %minorpent   "0xx0x0x0xx0x"
   %blues       "0x000xx0x0xx"
+  %minorblues  "0xx0x000xx00"
+  %minorharm   "000x0x00xx00"
+  %minormelod  "000x0x0x0x00"
   %chromatic   "000000000000"
 ==
 ::  fretboardmaptolist takes the full map of all notes on the fretboard and the list
@@ -72,7 +83,7 @@
 |-  ^-  @t
 ?:  =(counter 0)  (crip (weld (trip stringstring) "|"))
 $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenotelist `@t`(snag 0 notelist)))), counter (dec counter), notelist (oust [0 1] notelist))
-::  Fretbuilder builds a tape that represents an individual fret, e.g. "|--1-A--"
+::  fretbuilder builds a tape that represents an individual fret, e.g. "|--1-A--"
 ::  It adjusts the fret tape slightly to account for two character notes (e.g. G#, F#, etc.).
 ::
 ++  fretbuilder
