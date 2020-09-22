@@ -7,10 +7,10 @@
 ::    and each @t is a note (fretboard).
 :: 3. compare the scalenoteslist to the fretboard and make a new map
 ::    with all of the notes not in the scale removed.
-:: 4. use the new map to make a some @t that, when combined as a list and
+:: 4. use the new map to make some @t that, when combined as a list and
 ::    pretty printed, look like guitar tablature
 ::
-!.
+::  !.
 |=  [root=@t styleindex=@tas]
 =<
 =/  stringguide=(list @t)  `(list @t)`[root ~]
@@ -64,14 +64,18 @@
 ==
 ::  fretboardmaptolist takes the full map of all notes on the fretboard and the list
 ::  of notes in the user's chosen scale. It starts with the @t for the fretnumbers.
-::  Then for each string of teh guitar it calls the stringbuilder function which takes
+::  Then for each string of the guitar it calls the stringbuilder function which takes
 ::  the list of notes for that string from the fretboardmap and the notes in the scale
 ::  and returns a string for displaying showing only the notes in the scale as they
 ::  appear on that string.
 ::
 ++  fretboardmaptolist
 |=  [fretboardmap=(map @ud (list @t)) scalenotelist=(list @t)]
-[(fretnumber 16) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 1) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 2) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 3) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 4) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 5) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6) scalenotelist)]~
+=/  outputlist=(list @t)  [(fretnumber 16)]~
+=/  counter=@ud  1
+|-  ::^-  (list @t)
+?:  (gth counter 6)  (flop outputlist)
+  $(outputlist [(stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) counter) scalenotelist) outputlist], counter +(counter))
 ::  stringbuilder is called by the fretboardmaptolist arm to build the @t that
 ::  represents the string. The string is built by welding tapes produced by
 ::  the fretbuilder arm.
@@ -121,7 +125,6 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
 =|  editedstring=(list @t)
 |-  ^-  (list @t)
 ?~  string  editedstring
-  ~|  string
   ?~  (fand [(snag 0 `(list @t)`string) ~] scalenoteslist)  $(editedstring (snoc editedstring 'x'), string t.string)   
     $(editedstring (snoc `(list @t)`editedstring (snag 0 `(list @t)`string)), string t.string)
 ::  octaveshortner returns a list of @t representing the notes in the standard
