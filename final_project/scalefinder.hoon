@@ -1,6 +1,7 @@
 :: The outer gate of the generator takes a root note and scale type (styleindex).
 :: The basic flow:
-:: 1. figure out what notes are in the scale the user wants (scalenoteslist).
+:: 1. figure out what notes are in the scale the user wants from
+::    a list of all notes (scalenoteslist).
 :: 2. make a map of all the notes on the fretboard where the key is a @ud
 ::    representing a guitar string and the value is a list of @t
 ::    and each @t is a note (fretboard).
@@ -70,7 +71,7 @@
 ::
 ++  fretboardmaptolist
 |=  [fretboardmap=(map @ud (list @t)) scalenotelist=(list @t)]
-[fretnumber (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 1) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 2) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 3) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 4) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 5) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6) scalenotelist)]~
+[(fretnumber 16) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 1) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 2) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 3) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 4) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 5) scalenotelist) (stringbuilder `(list @t)`(~(got by `(map @ud (list @t))`fretboardmap) 6) scalenotelist)]~
 ::  stringbuilder is called by the fretboardmaptolist arm to build the @t that
 ::  represents the string. The string is built by welding tapes produced by
 ::  the fretbuilder arm.
@@ -187,10 +188,15 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
 ^-  @ud
 ?~  (fand stringguide twooctaves)  ~|("Invalid Root Note" !!)
  (snag 0 (fand stringguide twooctaves)) 
-::  returns a @t of fretnumbers for the final display. Should be done recursively,
-::  we will see if I get to it.
+::  returns a @t of numbered frets for the final display.
 ::
 ++  fretnumber
-  ^-  @t
-  `@t`'|---0---|---1---|---2---|---3---|---4---|---5---|---6---|---7---|---8---|---9---|---10--|---11--|---12--|---13--|---14--|---15--|---16--|'
+|=  frets=@ud
+=/  numberoffrets=@ud  +(frets)
+=/  counter=@ud  0
+=/  returntape=tape  ""
+|-  ^-  @t
+?:  (gte counter numberoffrets)  (crip (weld returntape "|"))
+  ?:  (gte counter 10)  $(returntape (weld returntape (weld (weld "|---" ~(rend co %$ %ud counter)) "--")), counter +(counter)) 
+    $(returntape (weld returntape (weld (weld "|---" ~(rend co %$ %ud counter)) "---")), counter +(counter)) 
 --

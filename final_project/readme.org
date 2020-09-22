@@ -1,7 +1,7 @@
 #+title: scalefinder.hoon 
 
 * Introduction
-scalefinder.hoon is a simple generator for displaying the notes of various scales in guitar tablature format through the urbit dojo. In standard guitar tablature, the highest pitched string, the 6th string is at the top with each successive string below it.  
+scalefinder.hoon is a simple generator for displaying the notes of various scales in guitar tablature format through the urbit dojo. In standard guitar tablature, the highest pitched string, the 1st string is at the top with each successive string below it.  
 
 ** Example Usage and Output
 =+scalefinder ['A#' %pentatonic]=
