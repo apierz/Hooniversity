@@ -10,7 +10,7 @@
 :: 4. use the new map to make some @t that, when combined as a list and
 ::    pretty printed, look like guitar tablature
 ::
-::  !.
+!.
 |=  [root=@t styleindex=@tas]
 =<
 =/  stringguide=(list @t)  `(list @t)`[root ~]
