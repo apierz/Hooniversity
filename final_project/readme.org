@@ -40,3 +40,4 @@ and the tail is a =term=. Currently supported scale types:
 +  %mixolydian
 +  %pentatonic
 +  %blues     
++  minorpent     
