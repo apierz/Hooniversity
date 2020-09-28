@@ -14,9 +14,8 @@
 |=  [root=@t styleindex=@tas]
 =<
 =/  stringguide=(list @t)  `(list @t)`[root ~]
-::
 ::  scalestyle index takes the name of the style passed through the outer gate
-::  and calls the getscaletape arm to get a tape  of 0s and xs that represent
+::  and calls the getscaletape arm to get a tape of 0s and xs that represent
 ::  the note intervals for that scale type.
 ::
 =/  scalestyleindex=tape  (getscaletape styleindex)  
@@ -24,16 +23,16 @@
 ::  a seperate function solely for input checking.
 ::
 =/  limiter=@ud  (getlimiter stringguide)
-::  scalenoteslist is a list of @t's with each @t in the list representing one note
+::  scalenoteslist is a list of @t with each @t in the list representing one note
 ::  in the scale, i.e. 'F#'. octaveshortner takes the full list of notes and returns
-::  the octave starting at the users chosen root note so that the intervals will
+::  the octave starting at the user's chosen root note so that the intervals will
 ::  be calculated from that note. scalelistbuilder is an arm that builds the list.
 ::
 =/  scalenoteslist=(list @t)  `(list @t)`(scalelistbuilder [(octaveshortner limiter) scalestyleindex])
-:: the last line of the main arm builds a list to display to the user. Their
+:: the last line of the main arm builds a list to display to the user. The
 :: first item is a list of the notes in the scale in order. The second is the
 :: fretboard display which converts the fretboardmap of all notes into a list
-:: of @ts for display.
+:: of @t for display.
 ::
 [scalenoteslist (fretboardmaptolist [(fretboardmap scalenoteslist) scalenoteslist])]
 ::
@@ -79,7 +78,6 @@
 ::  stringbuilder is called by the fretboardmaptolist arm to build the @t that
 ::  represents the string. The string is built by welding tapes produced by
 ::  the fretbuilder arm.
-::
 ::
 ++  stringbuilder
 |=  [notelist=(list @t) scalenotelist=(list @t)] 
@@ -145,7 +143,7 @@ $(stringstring (crip (weld (trip stringstring) (fretbuilder `(list @t)`scalenote
   ?~  shortenedlist  ~
   ?:  =((snag 0 `tape`styleindex) '0')  $(returnlist (snoc returnlist `@t`(snag 0 `(list @t)`shortenedlist)), styleindex t.styleindex, shortenedlist t.shortenedlist) 
     $(styleindex t.styleindex, shortenedlist t.shortenedlist)
-::  an arm that supplies a list of all 12 standard notes that is used throughout the
+::  twooctaves is an arm that supplies a list of all 12 standard notes that is used throughout the
 ::  generator
 ::
 ++  twooctaves
